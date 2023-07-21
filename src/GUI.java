@@ -1,34 +1,56 @@
  import javax.swing.*;
 import java.awt.*;
  import java.awt.event.ActionEvent;
+ import java.awt.event.ActionListener;
+ import java.util.Scanner;
 
- public class GUI extends JPanel  {
+ public class GUI extends JPanel implements ActionListener {
     // canvas for other GUI widgets
 
-    JButton button1;
-    JButton button2;
+    JButton buttonSignin;
+    JButton buttonSignup;
+
 
     public GUI(int width, int height) {
-        System.out.println("SEQUENCE: GUI constructor");
+        System.out.println("WELCOME!!!");
         this.setPreferredSize(new Dimension(width, height));
         setLayout(null);
-        button1 = new JButton("Sign in");
-        button1.setBounds(170, 200, 100, 40);
-        button2 = new JButton("Sign up");
-        button2.setBounds(280, 200, 100, 40);
-        button1.setBackground(Color.BLUE);
-        add(button1);
-        button2.setBackground(Color.BLUE);
-        add(button2);
+        buttonSignin = new JButton("Sign in");
+        buttonSignin.setBounds(170, 200, 100, 40);
+        buttonSignup = new JButton("Sign up");
+        buttonSignup.setBounds(280, 200, 100, 40);
+        buttonSignin.setBackground(Color.MAGENTA);
+        buttonSignin.addActionListener(this);
+        add(buttonSignin);
+        buttonSignup.setBackground(Color.magenta);
+        add(buttonSignup);
 
     }
+
     public void actionPerformed(ActionEvent e) {
-            if (e.getActionCommand().equals("Sign in page")) {
-                System.out.println("click");
+            if (e.getActionCommand().equals("Sign in ")) {
+                Login login = new Login();
+                Scanner scanner = new Scanner(System.in);
+                boolean passwordOK = false;
+                while (!passwordOK) {
+                    System.out.print("Enter username: ");
+                    String username = scanner.nextLine();
+
+                    System.out.print("Enter password: ");
+                    String password = scanner.nextLine();
+
+
+                    if (login.isValid(username, password)) {
+                        passwordOK =true;
+                        System.out.println("User registration successful! ");
+                    } else {
+                        System.out.println("Username or password incorrect");
+
+                    }
+                }
+
+
 
             }
         }
     }
-
-
-

@@ -1,26 +1,37 @@
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class Login {
-    Scanner input = new Scanner(System.in);
-        String username;
-        String password;
+    private Map<String, String> users;
 
-        public void setUsername() {
-            Scanner input1 = new Scanner(System.in);
-            System.out.println("Enter Username : ");
-            username = input1.next();
-        }
-        public void setPassword() {
-            Scanner input2 = new Scanner(System.in);
-            System.out.println("Enter Password : ");
-            password = input2.next();
-        }
-        public String getPassword() {
-            return password;
+    public Login() {
+        users = new HashMap<>();
+        loadUsers("users.txt");
+    }
 
+    public void loadUsers ( String fileName){
+        ArrayList<String> userdata= Filehandler.readFile(fileName);
+        for(int i=0; i< userdata.size(); i=i+2){
+            addUser(userdata.get(i), userdata.get(i+1));
         }
-        public String getUsername() {
-            return username;
+    }
 
+
+
+    public void addUser(String username, String password) {
+        users.put(username, password);
+    }
+
+    public boolean isValid(String username, String password) {
+        if (users.containsKey(username) && users.get(username).equals(password)) {
+
+            return true;
+        } else {
+
+            return false;
         }
-}
+    }}
+
+
